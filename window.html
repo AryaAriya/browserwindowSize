@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Browser window size</title>
+<link rel="stylesheet" href="style.css">
+<style>
+ body {
+   margin: 0;
+   font-family: Arial, Helvetica, sans-serif;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   height: 100vh;
+   background: #2a0c5e;
+   color: #fff;
+ }
+
+ #container {
+   text-align: center;
+   background: #5b078f;
+   width: var(--boxW, auto); /* Controlled by JS */
+   height: var(--boxH, auto); /* Controlled by JS */
+   padding: 100px 120px;
+   border-radius: 10px;
+   box-shadow: 0 2px 5px;
+   transition: all 0.3s ease;
+ }
+
+ #wh {
+   font-size: 1.5rem;
+   margin: 10px 0;
+ }
+
+ h1 {
+   font-size: 3rem;
+   margin: 20px 0;
+ }
+
+ select {
+   margin-top: 15px;
+   padding: 8px 12px;
+   border-radius: 5px;
+   border: none;
+   font-size: 1.2rem;
+   cursor: pointer;
+ }
+
+ @media screen and (max-width: 600px) {
+   #container {
+     padding: 40px 60px;
+     border-radius: 2px;
+   }
+
+   #wh {
+     font-size: 1rem;
+   }
+
+   h1 {
+     font-size: 0.5rem;
+   }
+
+   select {
+     font-size: 0.7rem;
+   }
+ }
+
+ @media screen and (max-width: 1024px) {
+   #container {
+     padding: 70px 100px;
+     border-radius: 4px;
+   }
+
+   #wh {
+     font-size: 1.5rem;
+   }
+
+   h1 {
+     font-size: 2rem;
+   }
+
+   select {
+     margin-top: 15px;
+     padding: 8px 12px;
+     font-size: 1rem;
+     cursor: pointer;
+   }
+ }
+
+ @media screen and (min-width: 1200px) {
+   #container {
+     padding: 100px 120px;
+     border-radius: 10px;
+   }
+
+   #wh {
+     font-size: 1.5rem;
+   }
+
+   h1 {
+     font-size: 3rem;
+   }
+
+   select {
+     margin-top: 15px;
+     padding: 8px 12px;
+     font-size: 1.2rem;
+     cursor: pointer;
+   }
+ }
+</style>
+</head>
+<body>
+<div id="container">
+ <h1>Browser Size</h1>
+ <div id="wh"></div>
+ <select id="unitSelector">
+   <option value="px">Pixels (px)</option>
+   <option value="em">em</option>
+   <option value="rem">rem</option>
+   <option value="%">Percent (%)</option>
+ </select>
+</div>
+
+<script>
+ function getSize() {
+   let w = document.documentElement.clientWidth;
+   let h = document.documentElement.clientHeight;
+   const unit = document.getElementById('unitSelector').value;
+
+   let displayW, displayH, boxW, boxH;
+
+   if (unit === "px") {
+     displayW = w + "px";
+     displayH = h + "px";
+     boxW = (w / 2) + "px";
+     boxH = (h / 2) + "px";
+   }
+   else if (unit === "em") {
+     let emSize = parseFloat(getComputedStyle(document.body).fontSize);
+     displayW = (w / emSize).toFixed(2) + "em";
+     displayH = (h / emSize).toFixed(2) + "em";
+     boxW = (w / emSize / 2).toFixed(2) + "em";
+     boxH = (h / emSize / 2).toFixed(2) + "em";
+   }
+   else if (unit === "rem") {
+     let remSize = parseFloat(getComputedStyle(document.documentElement).fontSize);
+     displayW = (w / remSize).toFixed(2) + "rem";
+     displayH = (h / remSize).toFixed(2) + "rem";
+     boxW = (w / remSize / 2).toFixed(2) + "rem";
+     boxH = (h / remSize / 2).toFixed(2) + "rem";
+   }
+   else if (unit === "%") {
+     displayW = "100%";
+     displayH = "100%";
+     boxW = "50%";
+     boxH = "50%";
+   }
+
+   // Update text
+   document.getElementById('wh').innerText = `Width: ${displayW} | Height: ${displayH}`;
+   document.documentElement.style.setProperty('--boxW', boxW);
+   document.documentElement.style.setProperty('--boxH', boxH);
+ }
+
+ window.onload = getSize;
+ window.addEventListener('resize', getSize);
+ document.getElementById('unitSelector').addEventListener('change', getSize);
+</script>
+</body>
+</html>
