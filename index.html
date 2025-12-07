@@ -157,11 +157,13 @@
    }
    // % browser size 
    else if (unit === "%") {
-     displayW = (w / window.innerWidth * 100).toFixed(2) + "vw";
-     displayH = (h / window.innerHeight * 100).toFixed(2) + "vh";
-     boxW = "50vw";
-     boxH = "50vh"
-   }
+    const refW = 1280; //Reference width
+    const refH = 551; //Reference height
+    displayW = ((w / refW) * 100).toFixed(2) + "%";
+    displayH = ((h / refH) * 100).toFixed(2) + "%";
+    boxW = ((w / refW) * 50).toFixed(2) + "%";
+    boxH = ((h / refH) * 50).toFixed(2) + "%";
+  }
 
    //Update text
    document.getElementById('wh').innerText = `Width: ${displayW} | Height: ${displayH}`;
@@ -176,4 +178,5 @@
 </body>
 
 </html>
+
 
