@@ -46,6 +46,7 @@
    cursor: pointer;
  }
 
+ /*Phone breakpoint*/
  @media screen and (max-width: 600px) {
    #container {
      padding: 40px 60px;
@@ -64,7 +65,7 @@
      font-size: 0.7rem;
    }
  }
-
+ /*Tablet breakpoint*/
  @media screen and (max-width: 1024px) {
    #container {
      padding: 70px 100px;
@@ -86,7 +87,7 @@
      cursor: pointer;
    }
  }
-
+ /*Desktop breakpoint*/
  @media screen and (min-width: 1200px) {
    #container {
      padding: 100px 120px;
@@ -114,6 +115,7 @@
 <div id="container">
  <h1>Browser Size</h1>
  <div id="wh"></div>
+ <!--Different units selector-->
  <select id="unitSelector">
    <option value="px">Pixels (px)</option>
    <option value="em">em</option>
@@ -130,12 +132,14 @@
 
    let displayW, displayH, boxW, boxH;
 
+   //px browser size
    if (unit === "px") {
      displayW = w + "px";
      displayH = h + "px";
      boxW = (w / 2) + "px";
      boxH = (h / 2) + "px";
    }
+    //em browser size
    else if (unit === "em") {
      let emSize = parseFloat(getComputedStyle(document.body).fontSize);
      displayW = (w / emSize).toFixed(2) + "em";
@@ -143,6 +147,7 @@
      boxW = (w / emSize / 2).toFixed(2) + "em";
      boxH = (h / emSize / 2).toFixed(2) + "em";
    }
+    //rem browser size
    else if (unit === "rem") {
      let remSize = parseFloat(getComputedStyle(document.documentElement).fontSize);
      displayW = (w / remSize).toFixed(2) + "rem";
@@ -150,19 +155,20 @@
      boxW = (w / remSize / 2).toFixed(2) + "rem";
      boxH = (h / remSize / 2).toFixed(2) + "rem";
    }
+   // % browser size 
    else if (unit === "%") {
-     displayW = "100%";
-     displayH = "100%";
-     boxW = "50%";
-     boxH = "50%";
+     displayW = (w / window.innerWidth * 100).toFixed(2) + "vw";
+     displayH = (h / window.innerHeight * 100).toFixed(2) + "vh";
+     boxW = "50vw";
+     boxH = "50vh"
    }
 
-   // Update text
+   //Update text
    document.getElementById('wh').innerText = `Width: ${displayW} | Height: ${displayH}`;
    document.documentElement.style.setProperty('--boxW', boxW);
    document.documentElement.style.setProperty('--boxH', boxH);
  }
-
+ 
  window.onload = getSize;
  window.addEventListener('resize', getSize);
  document.getElementById('unitSelector').addEventListener('change', getSize);
@@ -170,3 +176,4 @@
 </body>
 
 </html>
+
