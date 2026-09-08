@@ -34,3 +34,16 @@ Create an abstract piece of vector art visualizing chilly autumn wind picking up
   The Random Element: Fill the screen with thousands of tiny particles. 
   Use a 2D Perlin noise() field to dictate the angle and force of the wind at every pixel on the canvas.
   Visual Twist: Leave trails on the background (background(0, 0, 0, low_opacity)) so the particles look like sweeping, elegant gusts of wind carrying bits of gold and crimson dust.
+
+let autumnColors = [
+  '#8B0000', // Deep Dark Red
+  '#D2691E', // Chocolate / Orange-Brown
+  '#FF8C00', // Dark Orange
+  '#E6A100', // Warm Mustard Yellow
+  '#4A5D4E'  // Sage / Forest Green
+];
+
+// Pick a random autumn color
+let myColor = random(autumnColors); 
+fill(myColor);
+
