@@ -106,3 +106,17 @@ class Leaf {
   }
 }
 
+
+Random Grass???
+for(let i = 0; i < width; i += 4) {
+    let x = i + random(-2,2);
+    let baseY = height - 50;
+    let bladeHeight = random(20, 50);
+    let tipX = x + random (-10, 10);
+
+    stroke(random(30, 80), random(150, 220), random(30, 80));
+    strokeWeight(random(1, 3));
+    
+    // Draw the blade of grass
+    line(x, baseY, tipX, baseY - bladeHeight);
+  }
