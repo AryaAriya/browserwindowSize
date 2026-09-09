@@ -47,3 +47,62 @@ let autumnColors = [
 let myColor = random(autumnColors); 
 fill(myColor);
 https://editor.p5js.org/maryamalmatrooshi/sketches/8tY74Enmr
+
+let leaves = [];
+let numLeaves = 50;
+
+function setup() {
+  createCanvas(600, 400);
+  for (let i = 0; i < numLeaves; i++) {
+    leaves.push(new Leaf());
+  }
+}
+
+function draw() {
+  background(30, 40, 30);
+  
+  for (let leaf of leaves) {
+    leaf.update();
+    leaf.display();
+  }
+}
+
+class Leaf {
+  constructor() {
+    this.reset();
+    this.y = random(-height, 0); // Start at random heights above screen
+  }
+
+  reset() {
+    this.x = random(width);
+    this.y = random(-20, -10);
+    this.size = random(10, 25);
+    this.speed = random(1, 3);
+    this.angle = random(TWO_PI);
+    this.spin = random(-0.05, 0.05);
+    this.color = color(random(150, 220), random(80, 150), 20); // Autumn tones
+  }
+
+  update() {
+    this.y += this.speed;
+    this.x += sin(this.angle) * 1.5; // Sway side to side
+    this.angle += this.spin;
+
+    // Reset when it goes off the bottom
+    if (this.y > height + 20) {
+      this.reset();
+    }
+  }
+
+  display() {
+    push();
+    translate(this.x, this.y);
+    rotate(this.angle);
+    fill(this.color);
+    noStroke();
+    // Draw a simple leaf shape using an ellipse
+    ellipse(0, 0, this.size, this.size * 0.6);
+    pop();
+  }
+}
+
